@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ПОПУТНО — дневник настроения</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            background: linear-gradient(145deg, #f0f4ff 0%, #e8eeff 100%);
+            min-height: 100vh;
+            padding: 32px 20px;
+        }
+        .container { max-width: 1200px; margin: 0 auto; }
+        .nav {
+            background: white;
+            border-radius: 60px;
+            padding: 8px 16px;
+            margin-bottom: 24px;
+            display: flex;
+            gap: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+        .nav-item {
+            cursor: pointer;
+            padding: 12px 28px;
+            border-radius: 40px;
+            font-weight: 600;
+            color: #3a4a6e;
+            transition: all 0.2s;
+        }
+        .nav-item:hover { background: rgba(76,110,245,0.1); }
+        .nav-item.active {
+            background: linear-gradient(135deg, #4c6ef5, #845ef7);
+            color: white;
+        }
+        .card {
+            background: white;
+            border-radius: 32px;
+            padding: 32px;
+            margin-bottom: 28px;
+            box-shadow: 0 12px 32px rgba(0,0,0,0.08);
+        }
+        h2 { font-size: 26px; margin-bottom: 8px; color: #1a2a4a; }
+        h3 { font-size: 18px; margin-bottom: 12px; color: #1a2a4a; }
+        .subtitle {
+            color: #6c7a91;
+            margin-bottom: 28px;
+            border-left: 3px solid #845ef7;
+            padding-left: 16px;
+        }
+        textarea, input {
+            width: 100%;
+            padding: 16px 18px;
+            border: 2px solid #e2e8f0;
+            border-radius: 24px;
+            font-size: 15px;
+            font-family: inherit;
+            margin-bottom: 16px;
+            background: #fafcff;
+        }
+        textarea:focus, input:focus { outline: none; border-color: #845ef7; }
+        button {
+            background: linear-gradient(135deg, #4c6ef5, #845ef7);
+            color: white;
+            border: none;
+            padding: 14px 32px;
+            border-radius: 40px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        button:hover { transform: translateY(-2px); }
+        .delete-btn { background: #ef4444; padding: 8px 20px; font-size: 13px; }
+        .clear-btn { background: #ef4444; padding: 6px 14px; font-size: 12px; }
+        .trip-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px;
+            border-bottom: 1px solid #edf2f7;
+        }
+        .trip-info h4 { margin-bottom: 6px; color: #1a2a4a; }
+        .trip-info p { color: #7e8aa2; font-size: 13px; }
+        .result-card {
+            background: #f8faff;
+            border-radius: 28px;
+            padding: 24px;
+            margin-top: 28px;
+            border: 1px solid rgba(132,94,247,0.2);
+        }
+        .progress-bar {
+            background: #e2e8f0;
+            border-radius: 20px;
+            height: 12px;
+            margin: 8px 0 4px;
+        }
+        .progress-fill {
+            background: linear-gradient(90deg, #4c6ef5, #845ef7);
+            height: 100%;
+            border-radius: 20px;
+            width: 0%;
+            transition: width 0.5s ease;
+        }
+        .emotion-tag {
+            display: inline-block;
+            padding: 6px 18px;
+            border-radius: 40px;
+            font-size: 14px;
+            font-weight: 600;
+            background: white;
+        }
+        .mood-wheel {
+            background: #f0f4ff;
+            padding: 8px 20px;
+            border-radius: 40px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .mood-wheel:hover { background: #e0e8ff; transform: scale(1.02); }
+        .history-item {
+            border-bottom: 1px solid #edf2f7;
+            padding: 12px 0;
+            cursor: pointer;
+            transition: background 0.1s;
+        }
+        .history-item:hover { background: #f0f4ff; }
+        .page { display: none; }
+        .page.active { display: block; }
+        @media (max-width: 768px) {
+            .card { padding: 20px; }
+            .nav-item { padding: 8px 18px; font-size: 13px; }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="card" style="padding: 20px 28px; display: flex; align-items: center; gap: 16px;">
+        <div style="font-size: 48px;">🐳</div>
+        <div>
+            <div style="font-weight: bold; font-size: 20px; color: #1f3b6b;">ПОПУТНО</div>
+            <div style="font-size: 14px; color: #6c7a91;">Твой дневник настроения</div>
+        </div>
+    </div>
+    <div class="nav">
+        <div class="nav-item active" data-page="mood">😊 Дневник настроения</div>
+        <div class="nav-item" data-page="trips">✈️ Мои поездки</div>
+        <div class="nav-item" data-page="tests">🧪 Тесты</div>
+    </div>
+    <div id="page-mood" class="page active">
+        <div class="card">
+            <h2>📔 Дневник настроения</h2>
+            <div class="subtitle">Запиши свои эмоции — AI поможет понять и поддержит тебя</div>
+            <div style="margin-bottom: 16px; text-align: center;">
+                <div style="font-size: 14px; color: #666; margin-bottom: 8px;">🎡 Или выбери настроение:</div>
+                <div style="display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;">
+                    <span class="mood-wheel" data-text="Я чувствую радость и счастье">😊 Радость</span>
+                    <span class="mood-wheel" data-text="Я спокоен и умиротворён">😌 Спокойствие</span>
+                    <span class="mood-wheel" data-text="Я чувствую усталость">😴 Усталость</span>
+                    <span class="mood-wheel" data-text="Мне тревожно">😟 Тревога</span>
+                    <span class="mood-wheel" data-text="Мне грустно">😔 Грусть</span>
+                </div>
+            </div>
+            <div style="display: flex; gap: 8px; align-items: flex-start;">
+                <textarea id="diaryInput" rows="4" placeholder="Напиши, что ты чувствуешь..." style="flex: 1;"></textarea>
+                <button id="voiceBtn" style="background: #4c6ef5; padding: 12px 16px; font-size: 20px; border-radius: 60px;">🎤</button>
+            </div>
+            <button id="analyzeBtn">✨ Анализировать настроение</button>
+            <div id="moodResult" class="result-card" style="display: none;"></div>
+            <div style="margin-top: 32px; padding-top: 24px; border-top: 1px solid #edf2f7;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+                    <h3 style="margin: 0;">📋 Последние записи</h3>
+                    <button id="exportHistoryBtn" class="clear-btn" style="background: #4c6ef5;">📤 Экспорт</button>
+                    <button id="clearHistoryBtn" class="clear-btn" style="background: #ef4444;">🗑️ Очистить</button>
+                </div>
+                <canvas id="moodChart" style="max-height: 200px; margin-bottom: 24px;"></canvas>
+                <div id="historyList" style="max-height: 400px; overflow-y: auto;"></div>
+            </div>
+        </div>
+    </div>
+
+<div id="page-tests" class="page">
+    <div class="card">
+        <h2>🧪 Отчёт о тестировании</h2>
+        <div class="subtitle">Автоматизированное тестирование API /api/mood/analyze — 100 кейсов</div>
+        <div id="testSummary" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 16px; margin-bottom: 28px;"></div>
+        <canvas id="testChart" style="max-height: 260px; margin-bottom: 28px;"></canvas>
+        <div style="max-height: 500px; overflow-y: auto;">
+            <table style="width: 100%; border-collapse: collapse; font-size: 13px;">
+                <thead>
+                    <tr style="background: #f0f4ff;">
+                        <th style="padding: 10px; text-align: left;">#</th>
+                        <th style="padding: 10px; text-align: left;">Категория</th>
+                        <th style="padding: 10px; text-align: left;">Статус</th>
+                        <th style="padding: 10px; text-align: right;">Время</th>
+                    </tr>
+                </thead>
+                <tbody id="testTableBody"></tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+    <div id="page-trips" class="page">
+        <div class="card">
+            <h2>✈️ Мои поездки</h2>
+            <div class="subtitle">Создавай маршруты и планируй каждый день</div>
+            <div style="background: #fafcff; border-radius: 24px; padding: 24px; margin-bottom: 28px;">
+                <h3 style="margin-bottom: 16px;">➕ Новая поездка</h3>
+                <input type="text" id="tripCity" placeholder="Город (например: Москва)">
+                <div style="display: flex; gap: 12px;"><input type="date" id="tripStart" style="flex:1;"><input type="date" id="tripEnd" style="flex:1;"></div>
+                <button id="createTripBtn">📌 Создать поездку</button>
+            </div>
+            <div id="tripsList">⏳ Загрузка...</div>
+        </div>
+    </div>
+</div>
+<script>
+
+
+let testChartInstance = null;
+async function loadTestReport() {
+    try {
+        const res = await fetch('http://localhost:5000/api/test-report');
+        if (!res.ok) {
+            document.getElementById('testSummary').innerHTML = '<div style="color:red;">Отчёт не найден. Запустите test_api.py</div>';
+            return;
+        }
+        const data = await res.json();
+
+        const cards = [
+            { label: 'Всего тестов', value: data.total, color: '#4c6ef5' },
+            { label: 'Успешно (OK)', value: data.valid, color: '#10b981' },
+            { label: 'Fallback', value: data.fallback, color: '#f59e0b' },
+            { label: 'Ошибки', value: data.errors, color: '#ef4444' },
+            { label: 'Успешность', value: data.success_rate + '%', color: '#845ef7' },
+            { label: 'Валидность JSON', value: data.structure_validity + '%', color: '#06b6d4' },
+            { label: 'Ср. время', value: data.avg_response_time + 'с', color: '#8b5cf6' },
+        ];
+        document.getElementById('testSummary').innerHTML = cards.map(c => `
+            <div style="background: #f8faff; border-radius: 20px; padding: 16px; border: 1px solid ${c.color}33;">
+                <div style="font-size: 12px; color: #6c7a91; margin-bottom: 6px;">${c.label}</div>
+                <div style="font-size: 24px; font-weight: 700; color: ${c.color};">${c.value}</div>
+            </div>
+        `).join('');
+
+        const ctx = document.getElementById('testChart').getContext('2d');
+        if (testChartInstance) testChartInstance.destroy();
+        testChartInstance = new Chart(ctx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Успешно', 'Fallback', 'Ошибки'],
+                datasets: [{ data: [data.valid, data.fallback, data.errors], backgroundColor: ['#10b981', '#f59e0b', '#ef4444'] }]
+            },
+            options: { responsive: true, plugins: { legend: { position: 'bottom' } } }
+        });
+
+        document.getElementById('testTableBody').innerHTML = data.results.map(r => {
+            const color = r.status === 'OK' ? '#10b981' : (r.status === 'FALLBACK' ? '#f59e0b' : '#ef4444');
+            return `<tr style="border-bottom: 1px solid #edf2f7;">
+                <td style="padding: 8px;">${String(r.id).padStart(3, '0')}</td>
+                <td style="padding: 8px; color: #6c7a91;">${r.category}</td>
+                <td style="padding: 8px; color: ${color}; font-weight: 600;">${r.status}</td>
+                <td style="padding: 8px; text-align: right; color: #6c7a91;">${r.time}с</td>
+            </tr>`;
+        }).join('');
+    } catch (e) {
+        document.getElementById('testSummary').innerHTML = `<div style="color:red;">Ошибка: ${e.message}</div>`;
+    }
+}
+// 语音识别
+const voiceBtn = document.getElementById('voiceBtn');
+const diaryInput = document.getElementById('diaryInput');
+let recognition = null;
+if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    recognition = new SpeechRecognition();
+    recognition.lang = 'ru-RU';
+    recognition.continuous = false;
+    recognition.interimResults = false;
+    voiceBtn.addEventListener('click', () => {
+        recognition.start();
+        voiceBtn.textContent = '⏺️';
+        voiceBtn.style.background = '#ef4444';
+    });
+    recognition.onresult = (event) => {
+        diaryInput.value = event.results[0][0].transcript;
+        voiceBtn.textContent = '🎤';
+        voiceBtn.style.background = '#4c6ef5';
+    };
+    recognition.onerror = () => {
+        voiceBtn.textContent = '🎤';
+        voiceBtn.style.background = '#4c6ef5';
+        alert('Не удалось распознать речь');
+    };
+    recognition.onend = () => {
+        voiceBtn.textContent = '🎤';
+        voiceBtn.style.background = '#4c6ef5';
+    };
+} else {
+    voiceBtn.disabled = true;
+    voiceBtn.style.opacity = 0.5;
+}
+// 页面切换
+document.querySelectorAll('.nav-item').forEach(item => {
+    item.addEventListener('click', () => {
+        const page = item.dataset.page;
+        document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+        item.classList.add('active');
+        document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+        document.getElementById(`page-${page}`).classList.add('active');
+        if (page === 'trips') loadTrips();
+        if (page === 'tests') loadTestReport();
+    });
+});
+// 情绪转盘
+document.querySelectorAll('.mood-wheel').forEach(btn => {
+    btn.addEventListener('click', () => {
+        document.getElementById('diaryInput').value = btn.getAttribute('data-text');
+    });
+});
+// 历史记录功能
+let moodChartInstance = null;
+function saveToHistory(diary, emotion, score, analysis, triggers, recommendation) {
+    const history = JSON.parse(localStorage.getItem('mood_history') || '[]');
+    history.unshift({
+        id: Date.now(),
+        date: new Date().toLocaleString('ru-RU'),
+        diary: diary.substring(0, 40) + (diary.length > 40 ? '...' : ''),
+        emotion: emotion,
+        score: score,
+        analysis: analysis.substring(0, 80) + (analysis.length > 80 ? '...' : ''),
+        fullDiary: diary,
+        fullAnalysis: analysis,
+        triggers: triggers || 'Не определены',
+        recommendation: recommendation || 'Нет рекомендации'
+    });
+    const trimmed = history.slice(0, 15);
+    localStorage.setItem('mood_history', JSON.stringify(trimmed));
+    displayHistory();
+    drawChart();
+}
+function displayHistory() {
+    const history = JSON.parse(localStorage.getItem('mood_history') || '[]');
+    const container = document.getElementById('historyList');
+    if (!container) return;
+    if (history.length === 0) {
+        container.innerHTML = '<div style="color: #888; text-align: center; padding: 20px;">📭 Нет записей. Напишите свой первый дневник!</div>';
+        return;
+    }
+    container.innerHTML = history.map((item, index) => `
+        <div class="history-item" data-index="${index}">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+                <span style="font-weight: 600; background: #f0f4ff; padding: 2px 12px; border-radius: 20px; font-size: 13px;">${item.emotion}</span>
+                <span style="color: #888; font-size: 11px;">${item.date}</span>
+            </div>
+            <div style="color: #4a5a78; font-size: 13px; margin-bottom: 4px;">📝 ${item.diary}</div>
+            <div style="display: flex; justify-content: space-between; font-size: 12px;">
+                <span style="color: #4c6ef5;">🧠 ${item.score}/100</span>
+                <span style="color: #888;">${item.analysis}</span>
+            </div>
+        </div>
+    `).join('');
+    // 点击历史记录 -> 恢复完整分析
+    document.querySelectorAll('.history-item').forEach(el => {
+        el.addEventListener('click', () => {
+            const idx = parseInt(el.getAttribute('data-index'));
+            const item = history[idx];
+            if (!item) return;
+            document.getElementById('diaryInput').value = item.fullDiary;
+            const resultDiv = document.getElementById('moodResult');
+            resultDiv.style.display = 'block';
+            const tempIcon = item.score >= 70 ? '🔥☀️' : (item.score >= 40 ? '🌤️💚' : '❄️💙');
+            resultDiv.innerHTML = `
+                <h3 style="margin: 0 0 16px 0;">📊 Результаты анализа ${tempIcon}</h3>
+                <div style="margin-bottom: 20px;">
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 6px;">
+                        <strong>🧠 Психическое здоровье</strong>
+                        <span>${item.score} / 100</span>
+                    </div>
+                    <div class="progress-bar"><div class="progress-fill" style="width: ${item.score}%;"></div></div>
+                </div>
+                <div style="margin-bottom: 16px;"><span class="emotion-tag">😊 ${item.emotion}</span></div>
+                <div style="margin-bottom: 16px; background: white; padding: 16px; border-radius: 20px;">
+                    <strong>⚠️ Возможные причины</strong><br>${item.triggers}
+                </div>
+                <div style="margin-bottom: 16px;"><strong>📖 Анализ</strong><br>${item.fullAnalysis}</div>
+                <div style="background: #eef2ff; padding: 16px; border-radius: 20px;"><strong>💡 Рекомендация</strong><br>${item.recommendation}</div>
+            `;
+            resultDiv.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
+    });
+}
+function drawChart() {
+    const history = JSON.parse(localStorage.getItem('mood_history') || '[]');
+    if (history.length < 2) return;
+    const reversed = [...history].reverse();
+    const labels = reversed.map(item => { const parts = item.date.split(','); return parts[0]; });
+    const scores = reversed.map(item => item.score);
+    const ctx = document.getElementById('moodChart').getContext('2d');
+    if (moodChartInstance) moodChartInstance.destroy();
+    moodChartInstance = new Chart(ctx, {
+        type: 'line',
+        data: { labels: labels, datasets: [{ label: '🧠 Психическое здоровье', data: scores, borderColor: '#4c6ef5', backgroundColor: 'rgba(76,110,245,0.1)', tension: 0.3, fill: true, pointBackgroundColor: '#845ef7', pointRadius: 4 }] },
+        options: { responsive: true, maintainAspectRatio: true, scales: { y: { min: 0, max: 100, title: { display: true, text: 'Индекс здоровья' } } } }
+    });
+}
+function clearHistory() {
+    if (confirm('Очистить всю историю записей?')) {
+        localStorage.removeItem('mood_history');
+        displayHistory();
+        drawChart();
+    }
+}
+
+document.getElementById('exportHistoryBtn').addEventListener('click', () => {
+    const history = JSON.parse(localStorage.getItem('mood_history') || '[]');
+    if (!history.length) { alert('Нет данных для экспорта'); return; }
+    const blob = new Blob([JSON.stringify(history, null, 2)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'mood_history.json';
+    a.click();
+    URL.revokeObjectURL(url);
+});
+
+document.getElementById('clearHistoryBtn').addEventListener('click', clearHistory);
+// 情绪分析
+document.getElementById('analyzeBtn').onclick = async () => {
+    const diary = document.getElementById('diaryInput').value;
+    if (!diary.trim()) { alert('📝 Напишите свой дневник'); return; }
+    const resultDiv = document.getElementById('moodResult');
+    resultDiv.style.display = 'block';
+    resultDiv.innerHTML = '<div style="text-align: center; padding: 20px;">⏳ Анализирую...</div>';
+    try {
+        const res = await fetch('http://localhost:5000/api/mood/analyze', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ diary }) });
+        const data = await res.json();
+        if (data.error) {
+            resultDiv.innerHTML = `<div style="color: red;">❌ ${data.error}</div>`;
+        } else {
+            const score = data.mental_health_index;
+            const tempIcon = score >= 70 ? '🔥☀️' : (score >= 40 ? '🌤️💚' : '❄️💙');
+            resultDiv.innerHTML = `
+                <h3 style="margin: 0 0 16px 0;">📊 Результаты анализа ${tempIcon}</h3>
+                <div style="margin-bottom: 20px;">
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 6px;">
+                        <strong>🧠 Психическое здоровье</strong>
+                        <span>${score} / 100</span>
+                    </div>
+                    <div class="progress-bar"><div class="progress-fill" style="width: ${score}%;"></div></div>
+                </div>
+                <div style="margin-bottom: 16px;"><span class="emotion-tag">😊 ${data.main_emotion}</span></div>
+                <div style="margin-bottom: 16px; background: white; padding: 16px; border-radius: 20px;">
+                    <strong>⚠️ Возможные причины</strong><br>${data.triggers || 'Не определены'}
+                </div>
+                <div style="margin-bottom: 16px;"><strong>📖 Анализ</strong><br>${data.analysis}</div>
+                <div style="background: #eef2ff; padding: 16px; border-radius: 20px;"><strong>💡 Рекомендация</strong><br>${data.recommendation}</div>
+            `;
+            saveToHistory(diary, data.main_emotion, score, data.analysis, data.triggers, data.recommendation);
+        }
+    } catch(e) {
+        resultDiv.innerHTML = `<div style="color: red;">❌ Ошибка: ${e.message}</div>`;
+    }
+};
+// 行程管理
+async function loadTrips() {
+    try {
+        const res = await fetch('http://localhost:5000/api/trips');
+        const trips = await res.json();
+        const container = document.getElementById('tripsList');
+        if (!trips.length) container.innerHTML = '<div style="text-align: center; padding: 40px;">✈️ Нет поездок. Создайте первую!</div>';
+        else container.innerHTML = trips.map(t => `<div class="trip-item"><div class="trip-info"><h4>${t.city}</h4><p>📅 ${t.start_date} → ${t.end_date}</p><p>🕒 Создано: ${t.created_at}</p></div><button class="delete-btn" onclick="deleteTrip(${t.id})">🗑️ Удалить</button></div>`).join('');
+    } catch(e) { document.getElementById('tripsList').innerHTML = '<div style="color: red;">❌ Ошибка загрузки</div>'; }
+}
+window.deleteTrip = async (id) => { await fetch(`http://localhost:5000/api/trips/${id}`, { method: 'DELETE' }); loadTrips(); };
+document.getElementById('createTripBtn').onclick = async () => {
+    const city = document.getElementById('tripCity').value;
+    const start = document.getElementById('tripStart').value;
+    const end = document.getElementById('tripEnd').value;
+    if (!city || !start || !end) { alert('Заполните все поля'); return; }
+    await fetch('http://localhost:5000/api/trips', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ city, start_date: start, end_date: end }) });
+    document.getElementById('tripCity').value = ''; document.getElementById('tripStart').value = ''; document.getElementById('tripEnd').value = '';
+    loadTrips();
+};
+// 初始化
+window.addEventListener('DOMContentLoaded', () => { displayHistory(); drawChart(); loadTrips(); });
+</script>
+</body>
+</html>

@@ -1,0 +1,712 @@
+{
+  "timestamp": "13.09.2026 09:15:57",
+  "total": 100,
+  "valid": 100,
+  "fallback": 0,
+  "errors": 0,
+  "success_rate": 100.0,
+  "structure_validity": 100.0,
+  "avg_response_time": 4.63,
+  "results": [
+    {
+      "id": 1,
+      "category": "короткий позитив",
+      "status": "OK",
+      "time": 4.67,
+      "note": "score=75, emotion=спокойствие"
+    },
+    {
+      "id": 2,
+      "category": "короткий позитив",
+      "status": "OK",
+      "time": 4.12,
+      "note": "score=88, emotion=счастье"
+    },
+    {
+      "id": 3,
+      "category": "короткий позитив",
+      "status": "OK",
+      "time": 4.26,
+      "note": "score=85, emotion=радость"
+    },
+    {
+      "id": 4,
+      "category": "короткий позитив",
+      "status": "OK",
+      "time": 4.61,
+      "note": "score=78, emotion=спокойствие"
+    },
+    {
+      "id": 5,
+      "category": "короткий позитив",
+      "status": "OK",
+      "time": 4.11,
+      "note": "score=85, emotion=удовлетворение"
+    },
+    {
+      "id": 6,
+      "category": "короткий позитив",
+      "status": "OK",
+      "time": 4.24,
+      "note": "score=78, emotion=удовлетворение"
+    },
+    {
+      "id": 7,
+      "category": "короткий позитив",
+      "status": "OK",
+      "time": 4.05,
+      "note": "score=85, emotion=радость"
+    },
+    {
+      "id": 8,
+      "category": "короткий позитив",
+      "status": "OK",
+      "time": 4.59,
+      "note": "score=75, emotion=радость"
+    },
+    {
+      "id": 9,
+      "category": "короткий позитив",
+      "status": "OK",
+      "time": 4.1,
+      "note": "score=75, emotion=нейтральность"
+    },
+    {
+      "id": 10,
+      "category": "короткий позитив",
+      "status": "OK",
+      "time": 4.61,
+      "note": "score=78, emotion=спокойствие"
+    },
+    {
+      "id": 11,
+      "category": "короткий негатив",
+      "status": "OK",
+      "time": 4.3,
+      "note": "score=45, emotion=усталость"
+    },
+    {
+      "id": 12,
+      "category": "короткий негатив",
+      "status": "OK",
+      "time": 4.92,
+      "note": "score=40, emotion=грусть"
+    },
+    {
+      "id": 13,
+      "category": "короткий негатив",
+      "status": "OK",
+      "time": 4.71,
+      "note": "score=40, emotion=подавленность"
+    },
+    {
+      "id": 14,
+      "category": "короткий негатив",
+      "status": "OK",
+      "time": 4.41,
+      "note": "score=45, emotion=грусть"
+    },
+    {
+      "id": 15,
+      "category": "короткий негатив",
+      "status": "OK",
+      "time": 4.4,
+      "note": "score=30, emotion=гнев"
+    },
+    {
+      "id": 16,
+      "category": "короткий негатив",
+      "status": "OK",
+      "time": 4.4,
+      "note": "score=30, emotion=апатия"
+    },
+    {
+      "id": 17,
+      "category": "короткий негатив",
+      "status": "OK",
+      "time": 4.4,
+      "note": "score=30, emotion=опустошение"
+    },
+    {
+      "id": 18,
+      "category": "короткий негатив",
+      "status": "OK",
+      "time": 4.56,
+      "note": "score=45, emotion=тревога"
+    },
+    {
+      "id": 19,
+      "category": "короткий негатив",
+      "status": "OK",
+      "time": 4.76,
+      "note": "score=45, emotion=злость"
+    },
+    {
+      "id": 20,
+      "category": "короткий негатив",
+      "status": "OK",
+      "time": 4.71,
+      "note": "score=15, emotion=подавленность"
+    },
+    {
+      "id": 21,
+      "category": "нейтральный",
+      "status": "OK",
+      "time": 4.61,
+      "note": "score=65, emotion=нейтральность"
+    },
+    {
+      "id": 22,
+      "category": "бытовой",
+      "status": "OK",
+      "time": 4.5,
+      "note": "score=75, emotion=нейтральность"
+    },
+    {
+      "id": 23,
+      "category": "нейтральный",
+      "status": "OK",
+      "time": 4.23,
+      "note": "score=75, emotion=нейтральное"
+    },
+    {
+      "id": 24,
+      "category": "нейтральный",
+      "status": "OK",
+      "time": 4.48,
+      "note": "score=60, emotion=нейтральность"
+    },
+    {
+      "id": 25,
+      "category": "нейтральный",
+      "status": "OK",
+      "time": 4.72,
+      "note": "score=65, emotion=нейтральность"
+    },
+    {
+      "id": 26,
+      "category": "нейтральный",
+      "status": "OK",
+      "time": 4.6,
+      "note": "score=60, emotion=апатия"
+    },
+    {
+      "id": 27,
+      "category": "нейтральный",
+      "status": "OK",
+      "time": 4.51,
+      "note": "score=68, emotion=нейтральность"
+    },
+    {
+      "id": 28,
+      "category": "бытовой",
+      "status": "OK",
+      "time": 4.82,
+      "note": "score=78, emotion=спокойствие"
+    },
+    {
+      "id": 29,
+      "category": "нейтральный",
+      "status": "OK",
+      "time": 4.19,
+      "note": "score=75, emotion=спокойствие"
+    },
+    {
+      "id": 30,
+      "category": "нейтральный",
+      "status": "OK",
+      "time": 4.71,
+      "note": "score=78, emotion=нейтральность"
+    },
+    {
+      "id": 31,
+      "category": "спокойствие",
+      "status": "OK",
+      "time": 4.41,
+      "note": "score=85, emotion=спокойствие"
+    },
+    {
+      "id": 32,
+      "category": "спокойствие",
+      "status": "OK",
+      "time": 4.4,
+      "note": "score=85, emotion=спокойствие"
+    },
+    {
+      "id": 33,
+      "category": "спокойствие",
+      "status": "OK",
+      "time": 4.61,
+      "note": "score=78, emotion=облегчение"
+    },
+    {
+      "id": 34,
+      "category": "спокойствие",
+      "status": "OK",
+      "time": 5.22,
+      "note": "score=85, emotion=спокойствие"
+    },
+    {
+      "id": 35,
+      "category": "спокойствие",
+      "status": "OK",
+      "time": 4.71,
+      "note": "score=85, emotion=спокойствие"
+    },
+    {
+      "id": 36,
+      "category": "спокойствие",
+      "status": "OK",
+      "time": 4.4,
+      "note": "score=85, emotion=спокойствие"
+    },
+    {
+      "id": 37,
+      "category": "спокойствие",
+      "status": "OK",
+      "time": 4.61,
+      "note": "score=78, emotion=спокойствие"
+    },
+    {
+      "id": 38,
+      "category": "спокойствие",
+      "status": "OK",
+      "time": 4.4,
+      "note": "score=78, emotion=спокойствие"
+    },
+    {
+      "id": 39,
+      "category": "спокойствие",
+      "status": "OK",
+      "time": 5.03,
+      "note": "score=88, emotion=гармония"
+    },
+    {
+      "id": 40,
+      "category": "спокойствие",
+      "status": "OK",
+      "time": 4.5,
+      "note": "score=75, emotion=спокойствие"
+    },
+    {
+      "id": 41,
+      "category": "смешанный RU+CN",
+      "status": "OK",
+      "time": 4.3,
+      "note": "score=35, emotion=тревога"
+    },
+    {
+      "id": 42,
+      "category": "смешанный RU+CN позитив",
+      "status": "OK",
+      "time": 4.51,
+      "note": "score=88, emotion=радость"
+    },
+    {
+      "id": 43,
+      "category": "смешанный RU+CN тревога",
+      "status": "OK",
+      "time": 4.67,
+      "note": "score=45, emotion=растерянность"
+    },
+    {
+      "id": 44,
+      "category": "культурное давление",
+      "status": "OK",
+      "time": 4.75,
+      "note": "score=42, emotion=тревога"
+    },
+    {
+      "id": 45,
+      "category": "смешанный RU+CN",
+      "status": "OK",
+      "time": 4.3,
+      "note": "score=45, emotion=тоска"
+    },
+    {
+      "id": 46,
+      "category": "смешанный RU+CN",
+      "status": "OK",
+      "time": 4.91,
+      "note": "score=42, emotion=одиночество"
+    },
+    {
+      "id": 47,
+      "category": "смешанный RU+CN позитив",
+      "status": "OK",
+      "time": 4.49,
+      "note": "score=78, emotion=оптимизм"
+    },
+    {
+      "id": 48,
+      "category": "смешанный RU+CN",
+      "status": "OK",
+      "time": 4.84,
+      "note": "score=28, emotion=усталость"
+    },
+    {
+      "id": 49,
+      "category": "смешанный RU+CN",
+      "status": "OK",
+      "time": 4.71,
+      "note": "score=55, emotion=тревога"
+    },
+    {
+      "id": 50,
+      "category": "смешанный RU+CN позитив",
+      "status": "OK",
+      "time": 4.1,
+      "note": "score=85, emotion=радость"
+    },
+    {
+      "id": 51,
+      "category": "смешанный RU+CN",
+      "status": "OK",
+      "time": 4.71,
+      "note": "score=45, emotion=растерянность"
+    },
+    {
+      "id": 52,
+      "category": "смешанный RU+CN позитив",
+      "status": "OK",
+      "time": 4.61,
+      "note": "score=78, emotion=радость"
+    },
+    {
+      "id": 53,
+      "category": "смешанный RU+CN",
+      "status": "OK",
+      "time": 4.71,
+      "note": "score=45, emotion=одиночество"
+    },
+    {
+      "id": 54,
+      "category": "смешанный RU+CN",
+      "status": "OK",
+      "time": 4.2,
+      "note": "score=42, emotion=растерянность"
+    },
+    {
+      "id": 55,
+      "category": "смешанный RU+CN",
+      "status": "OK",
+      "time": 4.72,
+      "note": "score=42, emotion=тоска"
+    },
+    {
+      "id": 56,
+      "category": "длинный негатив",
+      "status": "OK",
+      "time": 5.82,
+      "note": "score=28, emotion=опустошение"
+    },
+    {
+      "id": 57,
+      "category": "длинный позитив",
+      "status": "OK",
+      "time": 4.55,
+      "note": "score=88, emotion=радость"
+    },
+    {
+      "id": 58,
+      "category": "длинный негатив",
+      "status": "OK",
+      "time": 5.49,
+      "note": "score=18, emotion=депрессивное состояние, безнадёжность"
+    },
+    {
+      "id": 59,
+      "category": "длинный позитив",
+      "status": "OK",
+      "time": 4.54,
+      "note": "score=88, emotion=гордость и облегчение"
+    },
+    {
+      "id": 60,
+      "category": "длинный тревога",
+      "status": "OK",
+      "time": 4.98,
+      "note": "score=48, emotion=тревога"
+    },
+    {
+      "id": 61,
+      "category": "длинный позитив",
+      "status": "OK",
+      "time": 4.3,
+      "note": "score=88, emotion=бодрость"
+    },
+    {
+      "id": 62,
+      "category": "длинный тревога",
+      "status": "OK",
+      "time": 4.4,
+      "note": "score=45, emotion=грусть"
+    },
+    {
+      "id": 63,
+      "category": "длинный позитив",
+      "status": "OK",
+      "time": 4.61,
+      "note": "score=85, emotion=радость"
+    },
+    {
+      "id": 64,
+      "category": "длинный тревога",
+      "status": "OK",
+      "time": 5.63,
+      "note": "score=30, emotion=тревога"
+    },
+    {
+      "id": 65,
+      "category": "длинный смешанный",
+      "status": "OK",
+      "time": 4.5,
+      "note": "score=72, emotion=облегчение"
+    },
+    {
+      "id": 66,
+      "category": "интенсивный негатив",
+      "status": "OK",
+      "time": 4.71,
+      "note": "score=12, emotion=отчаяние"
+    },
+    {
+      "id": 67,
+      "category": "интенсивный позитив",
+      "status": "OK",
+      "time": 4.46,
+      "note": "score=95, emotion=радость"
+    },
+    {
+      "id": 68,
+      "category": "интенсивный негатив",
+      "status": "OK",
+      "time": 5.06,
+      "note": "score=15, emotion=гнев"
+    },
+    {
+      "id": 69,
+      "category": "интенсивный позитив",
+      "status": "OK",
+      "time": 4.61,
+      "note": "score=92, emotion=радость"
+    },
+    {
+      "id": 70,
+      "category": "интенсивный негатив",
+      "status": "OK",
+      "time": 4.71,
+      "note": "score=20, emotion=паника"
+    },
+    {
+      "id": 71,
+      "category": "интенсивный позитив",
+      "status": "OK",
+      "time": 4.51,
+      "note": "score=88, emotion=радость"
+    },
+    {
+      "id": 72,
+      "category": "интенсивный негатив",
+      "status": "OK",
+      "time": 4.81,
+      "note": "score=28, emotion=истощение"
+    },
+    {
+      "id": 73,
+      "category": "интенсивный позитив",
+      "status": "OK",
+      "time": 3.99,
+      "note": "score=85, emotion=благодарность"
+    },
+    {
+      "id": 74,
+      "category": "интенсивный негатив",
+      "status": "OK",
+      "time": 4.51,
+      "note": "score=15, emotion=отчаяние"
+    },
+    {
+      "id": 75,
+      "category": "интенсивный позитив",
+      "status": "OK",
+      "time": 4.5,
+      "note": "score=88, emotion=радость"
+    },
+    {
+      "id": 76,
+      "category": "только эмодзи",
+      "status": "OK",
+      "time": 5.12,
+      "note": "score=20, emotion=отчаяние"
+    },
+    {
+      "id": 77,
+      "category": "только эмодзи",
+      "status": "OK",
+      "time": 4.4,
+      "note": "score=75, emotion=радость"
+    },
+    {
+      "id": 78,
+      "category": "1 символ",
+      "status": "OK",
+      "time": 4.4,
+      "note": "score=50, emotion=нейтральность"
+    },
+    {
+      "id": 79,
+      "category": "только знак",
+      "status": "OK",
+      "time": 4.61,
+      "note": "score=50, emotion=неопределённость"
+    },
+    {
+      "id": 80,
+      "category": "только знак",
+      "status": "OK",
+      "time": 4.77,
+      "note": "score=50, emotion=неопределённость"
+    },
+    {
+      "id": 81,
+      "category": "цифры",
+      "status": "OK",
+      "time": 4.54,
+      "note": "score=50, emotion=нейтральность"
+    },
+    {
+      "id": 82,
+      "category": "латиница",
+      "status": "OK",
+      "time": 4.2,
+      "note": "score=50, emotion=нейтральное"
+    },
+    {
+      "id": 83,
+      "category": "2000 символов",
+      "status": "OK",
+      "time": 5.32,
+      "note": "score=12, emotion=паника/крик о помощи"
+    },
+    {
+      "id": 84,
+      "category": "1000 повторов",
+      "status": "OK",
+      "time": 4.61,
+      "note": "score=50, emotion=нейтральное"
+    },
+    {
+      "id": 85,
+      "category": "всё смешано",
+      "status": "OK",
+      "time": 4.47,
+      "note": "score=50, emotion=нейтральность"
+    },
+    {
+      "id": 86,
+      "category": "неопределённое",
+      "status": "OK",
+      "time": 5.15,
+      "note": "score=45, emotion=эмоциональная неясность"
+    },
+    {
+      "id": 87,
+      "category": "неопределённое",
+      "status": "OK",
+      "time": 4.53,
+      "note": "score=55, emotion=апатия"
+    },
+    {
+      "id": 88,
+      "category": "неопределённое",
+      "status": "OK",
+      "time": 4.79,
+      "note": "score=55, emotion=неопределённая тревога"
+    },
+    {
+      "id": 89,
+      "category": "неопределённое",
+      "status": "OK",
+      "time": 5.12,
+      "note": "score=25, emotion=пустота"
+    },
+    {
+      "id": 90,
+      "category": "неопределённое",
+      "status": "OK",
+      "time": 4.61,
+      "note": "score=50, emotion=эмоциональная неясность"
+    },
+    {
+      "id": 91,
+      "category": "смешанные эмоции",
+      "status": "OK",
+      "time": 4.5,
+      "note": "score=60, emotion=амбивалентность"
+    },
+    {
+      "id": 92,
+      "category": "смешанные эмоции",
+      "status": "OK",
+      "time": 5.43,
+      "note": "score=68, emotion=удовлетворение"
+    },
+    {
+      "id": 93,
+      "category": "смешанные эмоции",
+      "status": "OK",
+      "time": 4.79,
+      "note": "score=58, emotion=грусть с надеждой"
+    },
+    {
+      "id": 94,
+      "category": "смешанные эмоции",
+      "status": "OK",
+      "time": 4.53,
+      "note": "score=55, emotion=амбивалентность"
+    },
+    {
+      "id": 95,
+      "category": "смешанные эмоции",
+      "status": "OK",
+      "time": 4.71,
+      "note": "score=68, emotion=умеренное волнение с надеждой"
+    },
+    {
+      "id": 96,
+      "category": "культурное давление",
+      "status": "OK",
+      "time": 4.81,
+      "note": "score=42, emotion=фрустрация"
+    },
+    {
+      "id": 97,
+      "category": "кризис идентичности",
+      "status": "OK",
+      "time": 5.12,
+      "note": "score=38, emotion=одиночество"
+    },
+    {
+      "id": 98,
+      "category": "кризис идентичности",
+      "status": "OK",
+      "time": 5.12,
+      "note": "score=45, emotion=замешательство"
+    },
+    {
+      "id": 99,
+      "category": "культурное давление",
+      "status": "OK",
+      "time": 4.93,
+      "note": "score=38, emotion=усталость"
+    },
+    {
+      "id": 100,
+      "category": "культурное давление",
+      "status": "OK",
+      "time": 4.41,
+      "note": "score=42, emotion=тревога"
+    }
+  ]
+}

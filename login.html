@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ПОПУТНО — дневник настроения</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', 'Inter', system-ui, -apple-system, sans-serif;
+            background: linear-gradient(145deg, #e6f0ff 0%, #d4e2fc 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* 漂浮气泡 */
+        .bubble {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 50%;
+            pointer-events: none;
+            animation: floatUp 8s infinite ease-in-out;
+            z-index: 0;
+        }
+
+        @keyframes floatUp {
+            0% { transform: translateY(0) scale(0.8); opacity: 0.4; }
+            50% { transform: translateY(-50px) scale(1); opacity: 0.8; }
+            100% { transform: translateY(-100px) scale(0.9); opacity: 0; }
+        }
+
+        /* 主卡片 */
+        .welcome-card {
+            position: relative;
+            z-index: 2;
+            max-width: 560px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.96);
+            backdrop-filter: blur(4px);
+            border-radius: 56px;
+            padding: 44px 36px 52px;
+            text-align: center;
+            box-shadow: 0 28px 48px rgba(0, 0, 0, 0.12);
+            transition: transform 0.3s ease;
+            border: 1px solid rgba(255,255,255,0.5);
+        }
+
+        .welcome-card:hover {
+            transform: scale(1.01);
+        }
+
+        /* 鲸鱼 + 水波 */
+        .whale-icon {
+            font-size: 88px;
+            display: inline-block;
+            animation: whaleSwim 3s ease-in-out infinite;
+            filter: drop-shadow(0 8px 16px rgba(0,0,0,0.1));
+        }
+
+        @keyframes whaleSwim {
+            0% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-6px) rotate(2deg); }
+            100% { transform: translateY(0px) rotate(0deg); }
+        }
+
+        .wave {
+            font-size: 24px;
+            letter-spacing: 6px;
+            opacity: 0.6;
+            margin-top: 4px;
+        }
+
+        h1 {
+            font-size: 48px;
+            font-weight: 800;
+            background: linear-gradient(135deg, #1f3b6b, #4f6fbf);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin: 12px 0 8px;
+        }
+
+        .tagline {
+            color: #4f6fbf;
+            font-size: 18px;
+            font-weight: 600;
+            background: rgba(79, 111, 191, 0.1);
+            display: inline-block;
+            padding: 6px 24px;
+            border-radius: 40px;
+            margin-bottom: 24px;
+        }
+
+        .desc {
+            color: #3a4f6e;
+            line-height: 1.5;
+            margin-bottom: 28px;
+            font-size: 15px;
+            background: #f5f9ff;
+            padding: 16px;
+            border-radius: 28px;
+        }
+
+        /* 快速心情选择 */
+        .quick-mood {
+            display: flex;
+            justify-content: space-between;
+            gap: 12px;
+            margin-bottom: 28px;
+            flex-wrap: wrap;
+        }
+        .mood-option {
+            flex: 1;
+            background: white;
+            border: 1px solid #e0e8ff;
+            border-radius: 60px;
+            padding: 10px 0;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 20px;
+            text-align: center;
+        }
+        .mood-option:hover {
+            background: #eef3ff;
+            transform: translateY(-2px);
+            border-color: #4f6fbf;
+        }
+        .mood-option.selected {
+            background: #4f6fbf;
+            border-color: #4f6fbf;
+            box-shadow: 0 4px 12px rgba(79,111,191,0.3);
+        }
+
+        .btn-start {
+            background: linear-gradient(135deg, #4f6fbf, #6b4fbf);
+            color: white;
+            border: none;
+            padding: 16px 28px;
+            border-radius: 60px;
+            font-size: 18px;
+            font-weight: 700;
+            cursor: pointer;
+            width: 100%;
+            transition: all 0.2s;
+            box-shadow: 0 8px 20px rgba(79, 111, 191, 0.4);
+        }
+
+        .btn-start:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 28px rgba(79, 111, 191, 0.5);
+        }
+
+        .footer {
+            margin-top: 28px;
+            font-size: 12px;
+            color: #7d8eb0;
+            border-top: 1px solid #e0e8ff;
+            padding-top: 20px;
+        }
+
+        @media (max-width: 500px) {
+            .welcome-card { padding: 32px 20px; }
+            h1 { font-size: 38px; }
+            .quick-mood { gap: 8px; }
+            .mood-option { font-size: 16px; padding: 8px 0; }
+        }
+    </style>
+</head>
+<body>
+    <div id="bubbles"></div>
+    <div class="welcome-card">
+        <div class="whale-icon">🐳</div>
+        <div class="wave">🌊 ～ 🌊 ～ 🌊</div>
+        <h1>ПОПУТНО</h1>
+        <div class="tagline">✨ твой друг в мире эмоций</div>
+        <div class="desc">
+            📖 Дневник настроения · 🧠 Анализ эмоций · 💙 Поддержка
+        </div>
+        <div id="dailyCode" style="background: rgba(255,255,240,0.8); border-radius: 60px; padding: 12px 16px; margin: 16px 0; font-size: 14px; color: #4a6a8a;">
+        🎲 Загрузка...
+        </div>
+
+        <!-- 快速心情选择 -->
+        <div class="quick-mood">
+            <div class="mood-option" data-mood="😊 радость">😊</div>
+            <div class="mood-option" data-mood="😌 спокойствие">😌</div>
+            <div class="mood-option" data-mood="😔 грусть">😔</div>
+            <div class="mood-option" data-mood="😟 тревога">😟</div>
+            <div class="mood-option" data-mood="😤 усталость">😤</div>
+        </div>
+
+        <button class="btn-start" onclick="startApp()">
+            🐳 Начать анализ настроения →
+        </button>
+        <div class="footer">
+            💙 С заботой о твоём внутреннем мире
+        </div>
+    </div>
+
+    <script>
+        // 生成气泡
+        function createBubble() {
+            const bubble = document.createElement('div');
+            bubble.classList.add('bubble');
+            const size = Math.random() * 40 + 15;
+            bubble.style.width = `${size}px`;
+            bubble.style.height = `${size}px`;
+            bubble.style.left = `${Math.random() * 100}%`;
+            bubble.style.bottom = `-${Math.random() * 30}px`;
+            bubble.style.animationDuration = `${Math.random() * 5 + 5}s`;
+            document.getElementById('bubbles').appendChild(bubble);
+            setTimeout(() => bubble.remove(), 8000);
+        }
+        setInterval(createBubble, 1200);
+        for (let i = 0; i < 6; i++) setTimeout(createBubble, i * 400);
+
+        // 快速心情选择
+        let selectedMood = '';
+        document.querySelectorAll('.mood-option').forEach(opt => {
+            opt.addEventListener('click', () => {
+                document.querySelectorAll('.mood-option').forEach(o => o.classList.remove('selected'));
+                opt.classList.add('selected');
+                selectedMood = opt.getAttribute('data-mood');
+                // 可选：跳转时把心情带到主页面
+            });
+        });
+
+        function startApp() {
+            let url = "/app";
+            if (selectedMood) {
+                url += "?mood=" + encodeURIComponent(selectedMood);
+            }
+            window.location.href = url;
+        }
+
+const score = data.mental_health_index;
+const tempIcon = document.getElementById('tempIcon');
+if (score >= 70) {
+    tempIcon.innerHTML = "🔥☀️";
+    tempIcon.style.color = "#ff8c42";
+} else if (score >= 40) {
+    tempIcon.innerHTML = "🌤️💚";
+    tempIcon.style.color = "#6c8c42";
+} else {
+    tempIcon.innerHTML = "❄️💙";
+    tempIcon.style.color = "#4a90e2";
+}
+
+    </script>
+</body>
+</html>
